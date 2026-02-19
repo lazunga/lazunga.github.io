@@ -118,7 +118,7 @@
         }
 
         .hidden {
-            display: none;
+            display: none !important;
         }
 
         .fade-in {
@@ -194,49 +194,51 @@
                 <label>Vai participar da festa? <span class="required">*</span></label>
                 <div class="radio-group">
                     <label class="radio-option">
-                        <input type="radio" name="participacao" value="sim" required>
+                        <input type="radio" name="participacao" value="sim" required onchange="toggleCampos()">
                         <span>Sim, com certeza! 🎊</span>
                     </label>
                     <label class="radio-option">
-                        <input type="radio" name="participacao" value="nao">
+                        <input type="radio" name="participacao" value="nao" onchange="toggleCampos()">
                         <span>Infelizmente não poderei ir. 😢</span>
                     </label>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="nomeAmigo">Nome do(a) amiguinho(a) <span class="required">*</span></label>
-                <input type="text" id="nomeAmigo" name="nomeAmigo" placeholder="Exemplo: Pedro Silva" required>
-            </div>
-
-            <div class="form-group">
-                <label for="acompanhantes">Acompanhante(s) responsável(eis) <span class="required">*</span></label>
-                <input type="text" id="acompanhantes" name="acompanhantes" placeholder="Exemplo: José Silva e Maria Silva" required>
-            </div>
-
-            <div class="form-group">
-                <label>O(A) irmão(ã) vai acompanhar a brincadeira? <span class="required">*</span></label>
-                <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="irmaoAcompanha" value="sim" id="irmaoSim" onchange="toggleIrmãos()">
-                        <span>Sim 👫</span>
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="irmaoAcompanha" value="nao" id="irmaoNao" onchange="toggleIrmãos()">
-                        <span>Não</span>
-                    </label>
-                </div>
-            </div>
-
-            <div id="irmaosSection" class="hidden">
+            <div id="camposParticipacao" class="fade-in">
                 <div class="form-group">
-                    <label for="nomeIrmao1">Nome do(a) irmão(ã) 1: <span class="required">*</span></label>
-                    <input type="text" id="nomeIrmao1" name="nomeIrmao1" placeholder="Exemplo: Bia Silva">
+                    <label for="nomeAmigo">Nome do(a) amiguinho(a) <span class="required">*</span></label>
+                    <input type="text" id="nomeAmigo" name="nomeAmigo" placeholder="Exemplo: Pedro Silva">
                 </div>
 
                 <div class="form-group">
-                    <label for="nomeIrmao2">Nome do(a) irmão(ã) 2:</label>
-                    <input type="text" id="nomeIrmao2" name="nomeIrmao2" placeholder="Exemplo: Lucas Silva">
+                    <label for="acompanhantes">Acompanhante(s) responsável(eis) <span class="required">*</span></label>
+                    <input type="text" id="acompanhantes" name="acompanhantes" placeholder="Exemplo: José Silva e Maria Silva">
+                </div>
+
+                <div class="form-group">
+                    <label>O(A) irmão(ã) vai acompanhar a brincadeira? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="irmaoAcompanha" value="sim" id="irmaoSim" onchange="toggleIrmãos()">
+                            <span>Sim 👫</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="irmaoAcompanha" value="nao" id="irmaoNao" onchange="toggleIrmãos()">
+                            <span>Não</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="irmaosSection" class="hidden">
+                    <div class="form-group">
+                        <label for="nomeIrmao1">Nome do(a) irmão(ã) 1: <span class="required">*</span></label>
+                        <input type="text" id="nomeIrmao1" name="nomeIrmao1" placeholder="Exemplo: Bia Silva">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nomeIrmao2">Nome do(a) irmão(ã) 2:</label>
+                        <input type="text" id="nomeIrmao2" name="nomeIrmao2" placeholder="Exemplo: Lucas Silva">
+                    </div>
                 </div>
             </div>
 
@@ -245,28 +247,71 @@
     </div>
 
     <script>
+        function toggleCampos() {
+            const participacaoSim = document.querySelector('input[name="participacao"][value="sim"]');
+            const camposParticipacao = document.getElementById('camposParticipacao');
+            const nomeAmigo = document.getElementById('nomeAmigo');
+            const acompanhantes = document.getElementById('acompanhantes');
+            const irmaoAcompanha = document.querySelectorAll('input[name="irmaoAcompanha"]');
+            
+            if (participacaoSim.checked) {
+                // Mostra todos os campos
+                camposParticipacao.classList.remove('hidden');
+                camposParticipacao.classList.add('fade-in');
+                
+                // Torna os campos obrigatórios
+                nomeAmigo.setAttribute('required', 'required');
+                acompanhantes.setAttribute('required', 'required');
+                
+                // Limpa a seleção de irmãos
+                irmaoAcompanha.forEach(radio => radio.checked = false);
+                toggleIrmãos();
+            } else {
+                // Oculta todos os campos
+                camposParticipacao.classList.add('hidden');
+                camposParticipacao.classList.remove('fade-in');
+                
+                // Remove obrigatoriedade
+                nomeAmigo.removeAttribute('required');
+                acompanhantes.removeAttribute('required');
+                
+                // Limpa todos os valores
+                nomeAmigo.value = '';
+                acompanhantes.value = '';
+                irmaoAcompanha.forEach(radio => radio.checked = false);
+                document.getElementById('nomeIrmao1').value = '';
+                document.getElementById('nomeIrmao2').value = '';
+                document.getElementById('irmaosSection').classList.add('hidden');
+            }
+        }
+
         function toggleIrmãos() {
             const irmaoSim = document.getElementById('irmaoSim');
             const irmaosSection = document.getElementById('irmaosSection');
             const nomeIrmao1 = document.getElementById('nomeIrmao1');
-            const nomeIrmao2 = document.getElementById('nomeIrmao2');
-
-            if (irmaoSim.checked) {
+            
+            if (irmaoSim && irmaoSim.checked) {
                 irmaosSection.classList.remove('hidden');
                 irmaosSection.classList.add('fade-in');
                 nomeIrmao1.setAttribute('required', 'required');
-            } else {
+            } else if (irmaosSection) {
                 irmaosSection.classList.add('hidden');
                 irmaosSection.classList.remove('fade-in');
                 nomeIrmao1.removeAttribute('required');
-                nomeIrmao2.value = '';
+                document.getElementById('nomeIrmao2').value = '';
             }
         }
 
         document.getElementById('rsvpForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Coletar dados do formulário
+            const participacao = document.querySelector('input[name="participacao"]:checked');
+            
+            if (!participacao) {
+                alert('Por favor, selecione se vai participar da festa! 😊');
+                return;
+            }
+            
             const formData = new FormData(this);
             const dados = Object.fromEntries(formData);
             
@@ -274,31 +319,16 @@
             console.log('Dados do formulário:', dados);
             
             // Mensagem de confirmação
-            alert('Resposta enviada com sucesso! 🎉\n\nObrigado por confirmar presença na festa da Liza!');
+            if (participacao.value === 'sim') {
+                alert('Resposta enviada com sucesso! 🎉\n\nObrigado por confirmar presença na festa da Liza!');
+            } else {
+                alert('Resposta enviada! 😢\n\nQue pena que você não poderá vir. Obrigado por avisar!');
+            }
             
             // Resetar formulário
             this.reset();
+            document.getElementById('camposParticipacao').classList.add('hidden');
             document.getElementById('irmaosSection').classList.add('hidden');
-        });
-
-        // Mostrar/ocultar campos obrigatórios baseado na participação
-        document.querySelectorAll('input[name="participacao"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const nomeAmigo = document.getElementById('nomeAmigo');
-                const acompanhantes = document.getElementById('acompanhantes');
-                
-                if (this.value === 'nao') {
-                    nomeAmigo.removeAttribute('required');
-                    acompanhantes.removeAttribute('required');
-                    nomeAmigo.parentElement.style.opacity = '0.5';
-                    acompanhantes.parentElement.style.opacity = '0.5';
-                } else {
-                    nomeAmigo.setAttribute('required', 'required');
-                    acompanhantes.setAttribute('required', 'required');
-                    nomeAmigo.parentElement.style.opacity = '1';
-                    acompanhantes.parentElement.style.opacity = '1';
-                }
-            });
         });
     </script>
 </body>
