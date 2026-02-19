@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniversário de Liza - 6 anos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #FFEB3B;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #FF6B00;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #8B4513;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .event-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: #5D4E37;
+            font-size: 0.95em;
+        }
+
+        .event-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #8B4513;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .required {
+            color: #FF0000;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #FFF9C4;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover {
+            background: #FFF59D;
+            transform: translateX(5px);
+        }
+
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #FF6B00;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #FFD54F;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #FF6B00;
+            box-shadow: 0 0 10px rgba(255,107,0,0.3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: #3E2723;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #5D4037;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .event-info {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Aniversário de Liza - 6 anos 🎂</h1>
+            <div class="event-info">
+                <span>📅 14/03/2026</span>
+                <span>🕑 14h às 17h</span>
+                <span>📍 Game Station - Shopping Salvador</span>
+            </div>
+        </div>
+
+        <form id="rsvpForm">
+            <div class="form-group">
+                <label>Vai participar da festa? <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="participacao" value="sim" required>
+                        <span>Sim, com certeza! 🎊</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="participacao" value="nao">
+                        <span>Infelizmente não poderei ir. 😢</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nomeAmigo">Nome do(a) amiguinho(a) <span class="required">*</span></label>
+                <input type="text" id="nomeAmigo" name="nomeAmigo" placeholder="Exemplo: Pedro Silva" required>
+            </div>
+
+            <div class="form-group">
+                <label for="acompanhantes">Acompanhante(s) responsável(eis) <span class="required">*</span></label>
+                <input type="text" id="acompanhantes" name="acompanhantes" placeholder="Exemplo: José Silva e Maria Silva" required>
+            </div>
+
+            <div class="form-group">
+                <label>O(A) irmão(ã) vai acompanhar a brincadeira? <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="irmaoAcompanha" value="sim" id="irmaoSim" onchange="toggleIrmãos()">
+                        <span>Sim 👫</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="irmaoAcompanha" value="nao" id="irmaoNao" onchange="toggleIrmãos()">
+                        <span>Não</span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="irmaosSection" class="hidden">
+                <div class="form-group">
+                    <label for="nomeIrmao1">Nome do(a) irmão(ã) 1: <span class="required">*</span></label>
+                    <input type="text" id="nomeIrmao1" name="nomeIrmao1" placeholder="Exemplo: Bia Silva">
+                </div>
+
+                <div class="form-group">
+                    <label for="nomeIrmao2">Nome do(a) irmão(ã) 2:</label>
+                    <input type="text" id="nomeIrmao2" name="nomeIrmao2" placeholder="Exemplo: Lucas Silva">
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Enviar Resposta ✉️</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleIrmãos() {
+            const irmaoSim = document.getElementById('irmaoSim');
+            const irmaosSection = document.getElementById('irmaosSection');
+            const nomeIrmao1 = document.getElementById('nomeIrmao1');
+            const nomeIrmao2 = document.getElementById('nomeIrmao2');
+
+            if (irmaoSim.checked) {
+                irmaosSection.classList.remove('hidden');
+                irmaosSection.classList.add('fade-in');
+                nomeIrmao1.setAttribute('required', 'required');
+            } else {
+                irmaosSection.classList.add('hidden');
+                irmaosSection.classList.remove('fade-in');
+                nomeIrmao1.removeAttribute('required');
+                nomeIrmao2.value = '';
+            }
+        }
+
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Coletar dados do formulário
+            const formData = new FormData(this);
+            const dados = Object.fromEntries(formData);
+            
+            // Aqui você pode enviar os dados para um servidor
+            console.log('Dados do formulário:', dados);
+            
+            // Mensagem de confirmação
+            alert('Resposta enviada com sucesso! 🎉\n\nObrigado por confirmar presença na festa da Liza!');
+            
+            // Resetar formulário
+            this.reset();
+            document.getElementById('irmaosSection').classList.add('hidden');
+        });
+
+        // Mostrar/ocultar campos obrigatórios baseado na participação
+        document.querySelectorAll('input[name="participacao"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const nomeAmigo = document.getElementById('nomeAmigo');
+                const acompanhantes = document.getElementById('acompanhantes');
+                
+                if (this.value === 'nao') {
+                    nomeAmigo.removeAttribute('required');
+                    acompanhantes.removeAttribute('required');
+                    nomeAmigo.parentElement.style.opacity = '0.5';
+                    acompanhantes.parentElement.style.opacity = '0.5';
+                } else {
+                    nomeAmigo.setAttribute('required', 'required');
+                    acompanhantes.setAttribute('required', 'required');
+                    nomeAmigo.parentElement.style.opacity = '1';
+                    acompanhantes.parentElement.style.opacity = '1';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
